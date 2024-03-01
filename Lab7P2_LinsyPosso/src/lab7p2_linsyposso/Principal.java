@@ -53,11 +53,13 @@ public class Principal extends javax.swing.JFrame {
         jmi_new = new javax.swing.JMenuItem();
         jmi_import = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jM_clear = new javax.swing.JMenu();
+        jM_ClearCL = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jM_refreshTree = new javax.swing.JMenuItem();
+        jM_help = new javax.swing.JMenu();
+        jmi_EstructuraP = new javax.swing.JMenuItem();
+        jmi_commands = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("Load File");
         jppm_tree.add(jMenuItem1);
@@ -127,23 +129,40 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu2.setText("Window");
 
-        jMenu4.setText("Clear");
+        jM_clear.setText("Clear");
 
-        jMenuItem3.setText("Clear Command Line");
-        jMenu4.add(jMenuItem3);
+        jM_ClearCL.setText("Clear Command Line");
+        jM_ClearCL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_ClearCLActionPerformed(evt);
+            }
+        });
+        jM_clear.add(jM_ClearCL);
 
         jMenuItem5.setText("Clear Table");
-        jMenu4.add(jMenuItem5);
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jM_clear.add(jMenuItem5);
 
-        jMenu2.add(jMenu4);
+        jMenu2.add(jM_clear);
 
-        jMenuItem4.setText("Refresh Tree");
-        jMenu2.add(jMenuItem4);
+        jM_refreshTree.setText("Refresh Tree");
+        jMenu2.add(jM_refreshTree);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Help");
-        jMenuBar1.add(jMenu3);
+        jM_help.setText("Help");
+
+        jmi_EstructuraP.setText("Product Structure");
+        jM_help.add(jmi_EstructuraP);
+
+        jmi_commands.setText("Commands");
+        jM_help.add(jmi_commands);
+
+        jMenuBar1.add(jM_help);
 
         setJMenuBar(jMenuBar1);
 
@@ -164,17 +183,16 @@ public class Principal extends javax.swing.JFrame {
     private void jB_enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jB_enterMouseClicked
         if (jtf_lineaComando.getText().contains("./load")) {
             cargardeArchivo();
-            jtf_lineaComando.setText("");
         } else if (jtf_lineaComando.getText().contains("./create")) {
             try {
                 crearArchivo();
-                jtf_lineaComando.setText("");
             } catch (IOException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if (jtf_lineaComando.getText().contains("./clean")){
             limpiarTable();
-            jtf_lineaComando.setText("");
+        }else if (jtf_lineaComando.getText().contains("./refresh")){
+            cargarArboles();
         }
     }//GEN-LAST:event_jB_enterMouseClicked
 
@@ -189,6 +207,14 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jmi_newActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+       limpiarTable();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jM_ClearCLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_ClearCLActionPerformed
+        jtf_lineaComando.setText("");
+    }//GEN-LAST:event_jM_ClearCLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,31 +315,34 @@ public class Principal extends javax.swing.JFrame {
         model.setRowCount(5);
     }
     
-    private void 
+    private void cargarArboles(){
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jB_enter;
+    private javax.swing.JMenuItem jM_ClearCL;
+    private javax.swing.JMenu jM_clear;
+    private javax.swing.JMenu jM_help;
+    private javax.swing.JMenuItem jM_refreshTree;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_productos;
     private javax.swing.JTree jTree_archivos;
+    private javax.swing.JMenuItem jmi_EstructuraP;
+    private javax.swing.JMenuItem jmi_commands;
     private javax.swing.JMenuItem jmi_import;
     private javax.swing.JMenuItem jmi_new;
     private javax.swing.JPopupMenu jppm_tree;
     private javax.swing.JTextField jtf_lineaComando;
     // End of variables declaration//GEN-END:variables
-static Scanner leer = new Scanner(System.in);
+    static Scanner leer = new Scanner(System.in);
     Producto pr = new Producto();
-    int abc = 0;
 }
