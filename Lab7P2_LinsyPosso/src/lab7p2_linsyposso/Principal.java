@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -41,11 +43,13 @@ public class Principal extends javax.swing.JFrame {
         jppm_tree = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jppm_table = new javax.swing.JPopupMenu();
+        jmi_cleartable = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jtf_lineaComando = new javax.swing.JTextField();
         jB_enter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree_archivos = new javax.swing.JTree();
+        jTree_archivo = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_productos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -67,6 +71,14 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem2.setText("Refresh Trees");
         jppm_tree.add(jMenuItem2);
 
+        jmi_cleartable.setText("jMenuItem3");
+        jmi_cleartable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cleartableActionPerformed(evt);
+            }
+        });
+        jppm_table.add(jmi_cleartable);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,8 +95,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jB_enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 160, 40));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSVs");
-        jTree_archivos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(jTree_archivos);
+        jTree_archivo.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jTree_archivo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 170, 480));
 
@@ -103,6 +115,11 @@ public class Principal extends javax.swing.JFrame {
                 "Id", "Name", "Category", "Price", "Aisle", "Bin"
             }
         ));
+        jTable_productos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_productosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable_productos);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 590, 480));
@@ -216,6 +233,14 @@ public class Principal extends javax.swing.JFrame {
         jtf_lineaComando.setText("");
     }//GEN-LAST:event_jM_ClearCLActionPerformed
 
+    private void jmi_cleartableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cleartableActionPerformed
+       
+    }//GEN-LAST:event_jmi_cleartableActionPerformed
+
+    private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
+        
+    }//GEN-LAST:event_jTable_productosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -316,7 +341,20 @@ public class Principal extends javax.swing.JFrame {
     }
     
     private void cargarArboles(){
-        
+        File direct = new File(".");
+        File [] a = direct.listFiles();
+        DefaultMutableTreeNode nodoA = new DefaultMutableTreeNode("Archivos CSV");
+        DefaultTreeModel model = (DefaultTreeModel) jTree_archivo.getModel();
+        model.setRoot(nodoA);
+        if (a != null) {
+            for (File file : a) {
+                if (file.getPath().contains(".txt")) {
+                    DefaultMutableTreeNode nodoN = new DefaultMutableTreeNode(file.getName());
+                    nodoA.add(nodoN);
+                }
+            }
+            jTree_archivo.setModel(model);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -335,11 +373,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_productos;
-    private javax.swing.JTree jTree_archivos;
+    private javax.swing.JTree jTree_archivo;
     private javax.swing.JMenuItem jmi_EstructuraP;
+    private javax.swing.JMenuItem jmi_cleartable;
     private javax.swing.JMenuItem jmi_commands;
     private javax.swing.JMenuItem jmi_import;
     private javax.swing.JMenuItem jmi_new;
+    private javax.swing.JPopupMenu jppm_table;
     private javax.swing.JPopupMenu jppm_tree;
     private javax.swing.JTextField jtf_lineaComando;
     // End of variables declaration//GEN-END:variables
