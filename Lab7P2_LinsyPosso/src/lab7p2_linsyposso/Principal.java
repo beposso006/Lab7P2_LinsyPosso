@@ -4,6 +4,18 @@
  */
 package lab7p2_linsyposso;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 29164
@@ -26,19 +38,20 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jppm_tree = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jtf_lineaComando = new javax.swing.JTextField();
+        jB_enter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jTree_archivos = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_productos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jmi_new = new javax.swing.JMenuItem();
+        jmi_import = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -46,56 +59,70 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
-        jButton1.setText("jButton1");
-
         jMenuItem1.setText("Load File");
-        jPopupMenu1.add(jMenuItem1);
+        jppm_tree.add(jMenuItem1);
 
         jMenuItem2.setText("Refresh Trees");
-        jPopupMenu1.add(jMenuItem2);
+        jppm_tree.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 580, 50));
+        jtf_lineaComando.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jtf_lineaComando, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 580, 50));
 
-        jButton2.setText("Enter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jB_enter.setText("Enter");
+        jB_enter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jB_enterMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 160, 40));
+        jPanel1.add(jB_enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 160, 40));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSVs");
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(jTree1);
+        jTree_archivos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jTree_archivos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 170, 480));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "Id", "Name", "Category", "Price", "Aisle", "Bin"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
+        ));
+        jScrollPane2.setViewportView(jTable_productos);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 590, 480));
 
         jMenu1.setText("File");
+
+        jmi_new.setText("New File");
+        jmi_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_newActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmi_new);
+
+        jmi_import.setText("Import File");
+        jmi_import.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_importActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmi_import);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Window");
@@ -124,19 +151,44 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jB_enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jB_enterMouseClicked
+        if (jtf_lineaComando.getText().contains("./load")) {
+            cargardeArchivo();
+            jtf_lineaComando.setText("");
+        } else if (jtf_lineaComando.getText().contains("./create")) {
+            try {
+                crearArchivo();
+                jtf_lineaComando.setText("");
+            } catch (IOException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if (jtf_lineaComando.getText().contains("./clean")){
+            limpiarTable();
+            jtf_lineaComando.setText("");
+        }
+    }//GEN-LAST:event_jB_enterMouseClicked
+
+    private void jmi_importActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_importActionPerformed
+        cargardeArchivo();
+    }//GEN-LAST:event_jmi_importActionPerformed
+
+    private void jmi_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_newActionPerformed
+        try {
+            crearArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jmi_newActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,9 +225,74 @@ public class Principal extends javax.swing.JFrame {
         });
     }
 
+    private void cargardeArchivo() {
+        File archivo = null;
+        FileReader fr = null;
+        try {
+            archivo = new File("./data.txt");
+            leer = new Scanner(archivo);
+            DefaultTableModel modelo = (DefaultTableModel) jTable_productos.getModel();
+            modelo.setRowCount(0);
+            while (leer.hasNext()) {
+                String next = leer.nextLine();
+                String[] tk = next.split(",");
+                System.out.println(next);
+
+                Object[] row = {tk[0], tk[1], tk[2], tk[3], tk[4], tk[5]};
+                
+                modelo.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        leer.close();
+    }
+
+    private void crearArchivo() throws IOException {
+        DefaultTableModel modelo = (DefaultTableModel) jTable_productos.getModel();
+        String acum = "";
+
+        File archivo = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            String l = jtf_lineaComando.getText();
+            String[] parse = l.split(" ");
+            archivo = new File("./" + parse[1]);
+            fw = new FileWriter(archivo, true);
+            bw = new BufferedWriter(fw);
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                for (int j = 0; j < modelo.getColumnCount(); j++) {
+                    if (modelo.getValueAt(i, j) != null) {
+                        modelo.getValueAt(i, j);
+                        acum += modelo.getValueAt(i, j) + ",";
+                    }
+                }
+                bw.write(acum);
+                acum = "";
+            }
+            bw.newLine();
+            bw.flush();
+        } catch (Exception e) {
+        }
+        bw.close();
+        fw.close();
+    }
+    
+    private void limpiarTable(){    
+        DefaultTableModel model = (DefaultTableModel) jTable_productos.getModel();
+        int f = jTable_productos.getRowCount();
+        for (int i = 0; f > i; i++) {
+            model.removeRow(0);
+        }
+        model.setRowCount(5);
+    }
+    
+    private void 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jB_enter;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -187,11 +304,16 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTable jTable_productos;
+    private javax.swing.JTree jTree_archivos;
+    private javax.swing.JMenuItem jmi_import;
+    private javax.swing.JMenuItem jmi_new;
+    private javax.swing.JPopupMenu jppm_tree;
+    private javax.swing.JTextField jtf_lineaComando;
     // End of variables declaration//GEN-END:variables
+static Scanner leer = new Scanner(System.in);
+    Producto pr = new Producto();
+    int abc = 0;
 }
