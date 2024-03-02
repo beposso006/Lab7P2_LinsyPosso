@@ -298,7 +298,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_commandsActionPerformed
 
     private void jmi_EstructuraPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_EstructuraPActionPerformed
-        
+        JOptionPane.showMessageDialog(this, "Descripcion: " + "Un producto debe llevar los siguientes atributos" 
+                + "\n" + "Id(entero)" + "\n" + "Name(es el nombre del producto)" + "\n"
+                + "Category(es la categoría del producto. Puede tener los valores enteros del 0 al 9)"
+                + "\n" + "Price(es el precio del producto, representado por un número real con dos posiciones decimales)"
+                + "\n" + ""
+        );
     }//GEN-LAST:event_jmi_EstructuraPActionPerformed
 
     /**
