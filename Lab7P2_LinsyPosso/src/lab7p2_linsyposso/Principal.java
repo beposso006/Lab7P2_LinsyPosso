@@ -303,6 +303,7 @@ public class Principal extends javax.swing.JFrame {
                 + "Category(es la categoría del producto. Puede tener los valores enteros del 0 al 9)"
                 + "\n" + "Price(es el precio del producto, representado por un número real con dos posiciones decimales)"
                 + "\n" + "Aisle (es el número de pasillo donde se guarda el producto, se representa con un número entero de 3 posiciones)"
+                + "\n" + "Bin (indican el lugar exacto donde se guarda el producto, se representa con un número entero de 3 posiciones)"
         );
     }//GEN-LAST:event_jmi_EstructuraPActionPerformed
 
