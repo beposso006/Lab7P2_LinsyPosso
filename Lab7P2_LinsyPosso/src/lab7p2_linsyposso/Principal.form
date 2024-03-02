@@ -8,15 +8,21 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+        <MenuItem class="javax.swing.JMenuItem" name="jmi_loadFile">
           <Properties>
             <Property name="text" type="java.lang.String" value="Load File"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_loadFileActionPerformed"/>
+          </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+        <MenuItem class="javax.swing.JMenuItem" name="jmi_refresh">
           <Properties>
             <Property name="text" type="java.lang.String" value="Refresh Trees"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_refreshActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -28,7 +34,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="jmi_cleartable">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem3"/>
+            <Property name="text" type="java.lang.String" value="Clear Table"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_cleartableActionPerformed"/>
@@ -93,6 +99,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Refresh Tree"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jM_refreshTreeActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -105,11 +114,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Product Structure"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_EstructuraPActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmi_commands">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Commands"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmi_commandsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -198,6 +213,9 @@
                   <TreeModel code="CSVs&#xa; "/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTree_archivoMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

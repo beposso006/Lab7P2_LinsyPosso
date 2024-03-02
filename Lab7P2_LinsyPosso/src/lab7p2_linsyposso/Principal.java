@@ -41,8 +41,8 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jppm_tree = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmi_loadFile = new javax.swing.JMenuItem();
+        jmi_refresh = new javax.swing.JMenuItem();
         jppm_table = new javax.swing.JPopupMenu();
         jmi_cleartable = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
@@ -65,13 +65,23 @@ public class Principal extends javax.swing.JFrame {
         jmi_EstructuraP = new javax.swing.JMenuItem();
         jmi_commands = new javax.swing.JMenuItem();
 
-        jMenuItem1.setText("Load File");
-        jppm_tree.add(jMenuItem1);
+        jmi_loadFile.setText("Load File");
+        jmi_loadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_loadFileActionPerformed(evt);
+            }
+        });
+        jppm_tree.add(jmi_loadFile);
 
-        jMenuItem2.setText("Refresh Trees");
-        jppm_tree.add(jMenuItem2);
+        jmi_refresh.setText("Refresh Trees");
+        jmi_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_refreshActionPerformed(evt);
+            }
+        });
+        jppm_tree.add(jmi_refresh);
 
-        jmi_cleartable.setText("jMenuItem3");
+        jmi_cleartable.setText("Clear Table");
         jmi_cleartable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmi_cleartableActionPerformed(evt);
@@ -96,6 +106,11 @@ public class Principal extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSVs");
         jTree_archivo.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree_archivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree_archivoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTree_archivo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 170, 480));
@@ -167,6 +182,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.add(jM_clear);
 
         jM_refreshTree.setText("Refresh Tree");
+        jM_refreshTree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_refreshTreeActionPerformed(evt);
+            }
+        });
         jMenu2.add(jM_refreshTree);
 
         jMenuBar1.add(jMenu2);
@@ -174,9 +194,19 @@ public class Principal extends javax.swing.JFrame {
         jM_help.setText("Help");
 
         jmi_EstructuraP.setText("Product Structure");
+        jmi_EstructuraP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_EstructuraPActionPerformed(evt);
+            }
+        });
         jM_help.add(jmi_EstructuraP);
 
         jmi_commands.setText("Commands");
+        jmi_commands.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_commandsActionPerformed(evt);
+            }
+        });
         jM_help.add(jmi_commands);
 
         jMenuBar1.add(jM_help);
@@ -234,12 +264,42 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jM_ClearCLActionPerformed
 
     private void jmi_cleartableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cleartableActionPerformed
-       
+        limpiarTable();
     }//GEN-LAST:event_jmi_cleartableActionPerformed
 
     private void jTable_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productosMouseClicked
-        
+        if (evt.isMetaDown()) {
+            jppm_table.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_jTable_productosMouseClicked
+
+    private void jM_refreshTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_refreshTreeActionPerformed
+       cargarArboles();
+    }//GEN-LAST:event_jM_refreshTreeActionPerformed
+
+    private void jTree_archivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree_archivoMouseClicked
+        if (evt.isMetaDown()) {
+            jppm_tree.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jTree_archivoMouseClicked
+
+    private void jmi_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_refreshActionPerformed
+        cargarArboles();
+    }//GEN-LAST:event_jmi_refreshActionPerformed
+
+    private void jmi_loadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_loadFileActionPerformed
+        cargardeArchivo();
+    }//GEN-LAST:event_jmi_loadFileActionPerformed
+
+    private void jmi_commandsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_commandsActionPerformed
+        JOptionPane.showMessageDialog(this, "Comandos: " + "\n"
+                + "1) ./load" + "\n" + "2) ./create" + "\n" + "3) ./clear"
+        + "\n" + "4) /refresh");
+    }//GEN-LAST:event_jmi_commandsActionPerformed
+
+    private void jmi_EstructuraPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_EstructuraPActionPerformed
+        
+    }//GEN-LAST:event_jmi_EstructuraPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,8 +426,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -378,7 +436,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_cleartable;
     private javax.swing.JMenuItem jmi_commands;
     private javax.swing.JMenuItem jmi_import;
+    private javax.swing.JMenuItem jmi_loadFile;
     private javax.swing.JMenuItem jmi_new;
+    private javax.swing.JMenuItem jmi_refresh;
     private javax.swing.JPopupMenu jppm_table;
     private javax.swing.JPopupMenu jppm_tree;
     private javax.swing.JTextField jtf_lineaComando;
