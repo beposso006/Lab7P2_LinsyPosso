@@ -229,7 +229,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jB_enterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jB_enterMouseClicked
         if (jtf_lineaComando.getText().contains("./load")) {
-            cargardeArchivo();
+            String [] n = jtf_lineaComando.getText().split(" ");
+            cargardeArchivo(n[1]);
         } else if (jtf_lineaComando.getText().contains("./create")) {
             try {
                 crearArchivo();
@@ -244,7 +245,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jB_enterMouseClicked
 
     private void jmi_importActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_importActionPerformed
-        cargardeArchivo();
+        String n = JOptionPane.showInputDialog("Nombre del Archivo");
+        cargardeArchivo(n);
     }//GEN-LAST:event_jmi_importActionPerformed
 
     private void jmi_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_newActionPerformed
@@ -288,7 +290,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_refreshActionPerformed
 
     private void jmi_loadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_loadFileActionPerformed
-        cargardeArchivo();
+        DefaultTreeModel modelo = (DefaultTreeModel) jTree_archivo.getModel();
+        nodoSeleccionado = (DefaultMutableTreeNode) jTree_archivo.getSelectionPath().getLastPathComponent();     
+        cargardeArchivo(nodoSeleccionado.toString());
     }//GEN-LAST:event_jmi_loadFileActionPerformed
 
     private void jmi_commandsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_commandsActionPerformed
@@ -298,7 +302,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_commandsActionPerformed
 
     private void jmi_EstructuraPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_EstructuraPActionPerformed
-        JOptionPane.showMessageDialog(this, "Descripcion: " + "Un producto debe llevar los siguientes atributos" 
+        JOptionPane.showMessageDialog(this, "Descripcion: " + "\n"+ "Un producto debe llevar los siguientes atributos" 
                 + "\n" + "Id(entero)" + "\n" + "Name(es el nombre del producto)" + "\n"
                 + "Category(es la categoría del producto. Puede tener los valores enteros del 0 al 9)"
                 + "\n" + "Price(es el precio del producto, representado por un número real con dos posiciones decimales)"
@@ -342,11 +346,11 @@ public class Principal extends javax.swing.JFrame {
         });
     }
 
-    private void cargardeArchivo() {
+    private void cargardeArchivo(String nombre) {
         File archivo = null;
         FileReader fr = null;
         try {
-            archivo = new File("./data.txt");
+            archivo = new File("./" + nombre);
             leer = new Scanner(archivo);
             DefaultTableModel modelo = (DefaultTableModel) jTable_productos.getModel();
             modelo.setRowCount(0);
@@ -360,7 +364,6 @@ public class Principal extends javax.swing.JFrame {
                 modelo.addRow(row);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         leer.close();
@@ -451,4 +454,5 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     static Scanner leer = new Scanner(System.in);
     Producto pr = new Producto();
+     DefaultMutableTreeNode nodoSeleccionado;
 }
